@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 public class LoginFrame extends javax.swing.JFrame {
@@ -80,13 +81,18 @@ public class LoginFrame extends javax.swing.JFrame {
             
             Connection con = DriverManager.getConnection("jdbc:postgresql://localhost/blog", "postgres", "postgres");
             
-            
-            String sql = "SELECT * FROM usuarios WHERE usuario = '" 
-                    + tfUsuario.getText() + "'  AND senha = '" + tfSenha.getText() + "'";
+            String sql = "SELECT * FROM usuarios WHERE usuario = ? AND senha = ?";
             System.out.println(sql);
+            // Consultas parametrizada
             
             
-            ResultSet rs = con.createStatement().executeQuery(sql);
+            // Consultas parametrizadas
+            PreparedStatement cmd = con.prepareStatement(sql);
+            
+            cmd.setString(1, tfUsuario.getText());
+            cmd.setString(2, tfSenha.getText());
+            
+            ResultSet rs = cmd.executeQuery();
             
             if (rs.next()) {
                 String usuario = rs.getString("nome");
@@ -99,7 +105,9 @@ public class LoginFrame extends javax.swing.JFrame {
             con.close();
             
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, e.getMessage(), "Erro Interno", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+            Logger.getLogger("Login").severe(e.toString());
+            JOptionPane.showMessageDialog(this, "Desculpe, ocorreu um erro", "Erro Interno", JOptionPane.ERROR_MESSAGE);
         }   
     }//GEN-LAST:event_jButton1ActionPerformed
 
