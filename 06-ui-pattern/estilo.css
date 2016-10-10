@@ -1,0 +1,16 @@
+/* estilo.css */
+h1 {
+    font-size: 18pt;
+    color: red;
+}
+
+h2, input.titulo {
+    font-family: arial, verdana, sans-serif;
+    font-size: 12pt;
+    font-weight: bold;
+    margin: 0;
+}
+
+input.titulo {
+    border: none;
+}
